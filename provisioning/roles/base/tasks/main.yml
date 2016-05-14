@@ -1,0 +1,19 @@
+---
+- name: set locale
+  command: localectl set-locale {{base_locale}}
+
+- name: set timezone
+  command: timedatectl set-timezone {{base_timezone}}
+
+- name: add epel repository
+  yum: name=epel-release state=present
+
+- name: install basic packages
+  yum: name={{item}} state=present
+  with_items:
+    - vim
+    - ntp
+    - bash-completion
+
+- name: enable ntp
+  service: name=ntpd state=started enabled=yes
