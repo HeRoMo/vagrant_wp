@@ -6,3 +6,4 @@
     base_timezone: Asia/Tokyo
   roles:
     - base
+    - nginx
