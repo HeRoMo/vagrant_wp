@@ -1,0 +1,4 @@
+---
+php_fpm:
+  user: nginx
+  group: nginx
