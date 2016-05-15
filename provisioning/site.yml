@@ -1,9 +1,6 @@
 ---
 - hosts: all
   become: yes
-  vars:
-    base_locale: LANG=ja_JP.UTF-8
-    base_timezone: Asia/Tokyo
   roles:
     - base
     - nginx

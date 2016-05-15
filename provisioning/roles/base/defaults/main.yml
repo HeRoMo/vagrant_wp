@@ -1,0 +1,4 @@
+---
+base:
+  locale: LANG=ja_JP.UTF-8
+  timezone: Asia/Tokyo

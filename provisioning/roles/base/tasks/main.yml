@@ -1,9 +1,9 @@
 ---
 - name: set locale
-  command: localectl set-locale {{base_locale}}
+  command: localectl set-locale {{base.locale}}
 
 - name: set timezone
-  command: timedatectl set-timezone {{base_timezone}}
+  command: timedatectl set-timezone {{base.timezone}}
 
 - name: add epel repository
   yum: name=epel-release state=present
