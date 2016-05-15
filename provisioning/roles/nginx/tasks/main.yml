@@ -1,6 +1,18 @@
 ---
+# なぜか動かないのでコメントアウト。代わりにファイルをコピーする
+# - name: add nginx repository
+#   yum_repository:
+#     name: nginx
+#     description: nginx repository
+#     baseurl: http://nginx.org/packages/mainline/centos/7/$basearch/
+#     gpgcheck: 0
+#     enabled: 0
+
+- name: add nginx repository
+  copy: src=nginx.repo dest=/etc/yum.repos.d/nginx.repo
+
 - name: install nginx
-  yum: name=nginx state=present
+  yum: name=nginx state=present enablerepo=nginx
   tags:
     - nginx
 
