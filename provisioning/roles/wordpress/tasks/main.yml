@@ -1,0 +1,30 @@
+---
+- name: install MySQL-python
+  yum : name=MySQL-python state=present
+
+- name: add wordpress db
+  mysql_db:
+    name: "{{wordpress.db_name}}"
+    encoding: utf8
+    state: present
+
+- name: add worpdress db user
+  mysql_user:
+    name: "{{wordpress.db_user}}"
+    password: "{{wordpress.db_password}}"
+    priv: "{{wordpress.db_name}}.*:ALL"
+    host: localhost
+
+- name: download wordpress
+  get_url:
+    url: https://ja.wordpress.org/latest-ja.tar.gz
+    dest: /usr/local/src/wordpress.tar.gz
+
+- name: install wordpress
+  unarchive:
+    src: /usr/local/src/wordpress.tar.gz
+    dest: /usr/share/nginx/html
+    group: "{{php_fpm.group}}"
+    owner: "{{php_fpm.user}}"
+    copy: no
+    creates: /usr/share/nginx/html/wordpress
