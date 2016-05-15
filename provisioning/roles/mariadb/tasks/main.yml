@@ -1,9 +1,12 @@
 ---
+- name: add mariadb.repo
+  template: src=mariadb.repo.j2 dest=/etc/yum.repos.d/mariadb.repo
+
 - name: install mariadb
-  yum: name={{item}} state=present
+  yum: name={{item}} state=present enablerepo=mariadb
   with_items:
-    - mariadb
-    - mariadb-server
+    - MariaDB-server
+    - MariaDB-client
   tags:
     - mariadb
 
