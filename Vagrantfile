@@ -73,5 +73,6 @@ Vagrant.configure(2) do |config|
   # SHELL
   config.vm.provision :ansible do |ansible|
     ansible.playbook = "provisioning/site.yml"
+    # ansible.raw_arguments = ["--verbose"] # for debug
   end
 end
