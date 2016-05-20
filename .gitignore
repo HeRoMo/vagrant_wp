@@ -2,3 +2,4 @@
 
 *.retry
 *.org
+.DS_Store

@@ -17,3 +17,18 @@
 
 - name: enable ntp
   service: name=ntpd state=started enabled=yes
+
+# bash setting
+- name: put /etc/util.sh
+  copy: src=util.sh dest=/etc/profile.d/util.sh
+
+- name: put inputrc-ext
+  copy: src=inputrc-ext dest=/etc/inputrc-ext
+
+- shell: grep '/etc/inputrc-ext' /etc/inputrc
+  register: result
+  ignore_errors: yes
+
+- name: modify inputrc
+  shell: echo '$include /etc/inputrc-ext' >> /etc/inputrc
+  when: result.rc != 0
