@@ -67,11 +67,20 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   sudo apt-get update
-  #   sudo apt-get install -y apache2
-  # SHELL
-  config.vm.provision :ansible do |ansible|
+
+  # workaround for vagrant 1.8.1 bug.↓↓↓
+  begin
+    Vagrant.require_version(">= 1.8.2")
+  rescue
+    config.vm.provision "shell", inline: <<-SHELL
+      echo '#!/bin/bash' > /usr/local/bin/ansible-galaxy
+      echo '/usr/bin/ansible-galaxy "$@" || exit 0' >> /usr/local/bin/ansible-galaxy
+      chmod 755 /usr/local/bin/ansible-galaxy
+    SHELL
+  end
+  # workaround for vagrant 1.8.1 bug.↑↑↑
+
+  config.vm.provision :ansible_local do |ansible|
     ansible.playbook = "provisioning/site.yml"
     # ansible.raw_arguments = ["--verbose"] # for debug
   end
