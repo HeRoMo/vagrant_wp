@@ -3,3 +3,7 @@
   service: name=nginx state=restarted
   tags:
     - nginx
+
+- name: reload systemd
+  shell: systemctl daemon-reload
+  notify: restart nginx
