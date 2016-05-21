@@ -2,3 +2,7 @@
 base:
   locale: LANG=ja_JP.UTF-8
   timezone: Asia/Tokyo
+
+sysctl:
+  fs:
+    file_max: 320000

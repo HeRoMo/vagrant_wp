@@ -18,6 +18,9 @@
 - name: enable ntp
   service: name=ntpd state=started enabled=yes
 
+- name: set fs.file-max
+  sysctl: name=fs.file-max value={{sysctl.fs.file_max}} state=present
+
 # bash setting
 - name: put /etc/util.sh
   copy: src=util.sh dest=/etc/profile.d/util.sh
