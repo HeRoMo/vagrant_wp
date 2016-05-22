@@ -30,6 +30,7 @@
     dest: /etc/systemd/system/nginx.service.d/nofile_limit.conf
   notify: reload systemd
 
+# modify nginx.conf
 - name: set nginx.conf
   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf backup=yes
   notify: restart nginx

@@ -1,7 +1,9 @@
 ---
-keepalive_timeout: 3
-server_names_hash_bucket_size: 128
-worker_rlimit_nofile: 4096
+nginx:
+  dir: /etc/nginx
+  keepalive_timeout: 3
+  server_names_hash_bucket_size: 128
+  worker_rlimit_nofile: 4096
 
 nofile_limit:
-  LimitNOFILE: "{{worker_rlimit_nofile}}"
+  LimitNOFILE: "{{nginx.worker_rlimit_nofile}}"
