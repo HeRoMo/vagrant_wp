@@ -14,6 +14,8 @@
     - vim
     - ntp
     - bash-completion
+    - selinux-policy-targeted
+    - selinux-policy-devel
 
 - name: enable ntp
   service: name=ntpd state=started enabled=yes
