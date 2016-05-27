@@ -1,0 +1,8 @@
+- name: install avahi
+  yum: name={{item}} state=present
+  with_items:
+    - avahi
+    - avahi-tools
+
+- name: enable avahi
+  service: name=avahi-daemon state=started enabled=yes
