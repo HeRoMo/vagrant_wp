@@ -23,8 +23,15 @@
 - name: install wordpress
   unarchive:
     src: /usr/local/src/wordpress.tar.gz
-    dest: /usr/share/nginx/html
+    dest: /var/www
     group: "{{php_fpm.group}}"
     owner: "{{php_fpm.user}}"
     copy: no
-    creates: /usr/share/nginx/html/wordpress
+    creates: /var/www/wordpress
+
+- name: change nginx defaut.conf for php
+  template: src=nginx_wordpress.conf.j2 dest=/etc/nginx/conf.d/wordpress.conf backup=yes
+  notify: restart nginx
+  tags:
+    - php
+    - nginx
