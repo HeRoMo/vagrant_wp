@@ -3,6 +3,15 @@
   with_items:
     - avahi
     - avahi-tools
+    - avahi-ui-tools # for python-avahi
 
 - name: enable avahi
   service: name=avahi-daemon state=started enabled=yes
+
+# https://github.com/airtonix/avahi-aliases
+- pip: name='git+http://github.com/airtonix/avahi-aliases.git' editable=false
+
+- copy: src=avahi-aliases.service dest=/etc/systemd/system/avahi-aliases.service
+
+- name: enable avahi-aliases
+  service: name=avahi-aliases state=started enabled=yes

@@ -1,0 +1,14 @@
+[Unit]
+Description = avahi alias daemon
+Requires=avahi-daemon.socket
+Documentation = https://github.com/airtonix/avahi-aliases
+
+[Service]
+ExecStart = /bin/avahi-alias start
+ExecReload= /bin/avahi-alias restart
+ExecStop= /bin/avahi-alias stop
+Restart = always
+Type = simple
+
+[Install]
+WantedBy = multi-user.target

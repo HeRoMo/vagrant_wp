@@ -14,8 +14,12 @@
     - vim
     - ntp
     - bash-completion
+    - zip
+    - unzip
+    - git
     - selinux-policy-targeted
     - selinux-policy-devel
+    - python-pip
 
 - name: enable ntp
   service: name=ntpd state=started enabled=yes
