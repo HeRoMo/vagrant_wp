@@ -1,7 +1,4 @@
 ---
-- name: install MySQL-python
-  yum : name=MySQL-python state=present
-
 - name: add wordpress db
   mysql_db:
     name: "{{wordpress.db_name}}"
