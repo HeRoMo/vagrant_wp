@@ -3,8 +3,9 @@
   become: yes
   roles:
     - base
+    - php
     - nginx
     - mariadb
-    - php
     - wordpress
     - avahi
+    # - gensaiinfo

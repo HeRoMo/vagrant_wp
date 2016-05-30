@@ -7,3 +7,15 @@ nginx:
 
 nofile_limit:
   LimitNOFILE: "{{nginx.worker_rlimit_nofile}}"
+
+ssl:
+  dir: "{{nginx.dir}}/ssl"
+  Country: JP
+  State: Tokyo
+  Locality: Minato-ku
+  OrganizationalName: Default Company Ltd
+  OrganizationalUnit: ""
+  CommonName: 192.168.33.120
+  Email: ""
+  challenge_password: ''
+  optional_company: ''

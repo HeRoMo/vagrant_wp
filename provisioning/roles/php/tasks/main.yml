@@ -28,21 +28,3 @@
   notify: restart php-fpm
   tags:
     - php
-
-# SSL
-- name: make ssl dir
-  file: path={{ssl.dir}} state=directory
-
-- name: generate private key, csr and crt
-  shell: |
-    openssl req -x509 -nodes -new -newkey rsa:2048 -keyout server.key -out server.crt \
-    -subj "/C={{ssl.Country}}/ST={{ssl.State}}/L={{ssl.Locality}}/CN={{ssl.CommonName}}" chdir="{{ssl.dir}}"
-  args:
-    creates: "{{ssl.dir}}/server.crt"
-
-- name: change nginx defaut.conf for php
-  template: src=nginx_default.conf.j2 dest=/etc/nginx/conf.d/default.conf backup=yes
-  notify: restart nginx
-  tags:
-    - php
-    - nginx
