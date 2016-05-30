@@ -1,5 +1,16 @@
 ---
 wordpress:
+  hostname: vagrant-wp.local
   db_name: wordpress
   db_user: wp_user
   db_password: wp_pswd
+  ssl:
+    Country: JP
+    State: Tokyo
+    Locality: Minato-ku
+    OrganizationalName: Default Company Ltd
+    OrganizationalUnit: ""
+    CommonName: vagrant-wp.local
+    Email: ""
+    challenge_password: ''
+    optional_company: ''
