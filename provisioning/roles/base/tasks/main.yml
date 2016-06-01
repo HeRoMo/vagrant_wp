@@ -8,6 +8,9 @@
 - name: add epel repository
   yum: name=epel-release state=present
 
+- name: yum upgrade
+  yum: name=* state=latest
+
 - name: install basic packages
   yum: name={{item}} state=present
   with_items:
