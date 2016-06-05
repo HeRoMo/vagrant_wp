@@ -81,6 +81,8 @@ Vagrant.configure(2) do |config|
   # workaround for vagrant 1.8.1 bug.↑↑↑
 
   config.vm.provision :ansible_local do |ansible|
+    ansible.inventory_path="provisioning/hosts"
+    ansible.limit=['vagrant']
     ansible.playbook = "provisioning/site.yml"
     # ansible.raw_arguments = ["--verbose"] # for debug
   end

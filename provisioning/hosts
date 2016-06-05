@@ -1,2 +1,2 @@
 [vagrant]
-vagrant-wp ansible_ssh_host=192.168.33.120
+vagrant-wp ansible_connection=local
