@@ -15,3 +15,14 @@
 
 - name: enable avahi-aliases
   service: name=avahi-aliases state=started enabled=yes
+
+# firewall setting
+- shell: systemctl status firewalld|grep running
+  register: fw
+  changed_when: fw.rc !=0
+  ignore_errors: yes
+
+- name: open avahi port
+  firewalld: port=5353/udp permanent=true state=enabled
+  notify: reload firewalld
+  when: fw.rc != 0

@@ -1,11 +1,11 @@
 ---
-- hosts: all
+- hosts: vagrant
   become: yes
   roles:
     - base
-    - php
     - nginx
+    - php
     - mariadb
+    - security
     - wordpress
     - avahi
-    # - gensaiinfo

@@ -1,0 +1,8 @@
+---
+- name: firewalld setting
+  include: firewalld.yml
+  tags:
+    - firewalld
+
+- name: sysctl setting
+  include: sysctl.yml

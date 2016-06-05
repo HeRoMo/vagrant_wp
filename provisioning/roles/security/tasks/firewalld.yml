@@ -1,0 +1,27 @@
+---
+- name: install firewalld
+  yum: name=firewalld state=present
+
+- name: enable firewalld
+  service: name=firewalld state=started enabled=yes
+  tags:
+    - firewalld
+
+- shell: firewall-cmd --list-interfaces|grep enp0s8
+  register: iface
+  changed_when: iface.rc != 0
+  ignore_errors: yes
+
+- name: add interface
+#  firewalld: interface=enp0s8 zone=public permanent=true
+  command: firewall-cmd --zone=public --add-interface=enp0s8 --permanent
+  notify: reload firewalld
+  when: iface.rc != 0
+
+- name: open services
+  firewalld: service={{item}} permanent=true state=enabled
+  with_items:
+    - ssh
+    - http
+    - https
+  notify: reload firewalld
