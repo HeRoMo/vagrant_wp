@@ -17,7 +17,7 @@
   service: name=avahi-aliases state=started enabled=yes
 
 # firewall setting
-- shell: systemctl status firewalld|grep running
+- shell: firewall-cmd --list-all|grep 5353/udp
   register: fw
   changed_when: fw.rc !=0
   ignore_errors: yes
