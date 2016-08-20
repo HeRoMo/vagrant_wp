@@ -1,15 +1,15 @@
 ---
 - name: add wordpress db
   mysql_db:
-    name: "{{wordpress.db_name}}"
+    name: "{{db.name}}"
     encoding: utf8
     state: present
 
 - name: add worpdress db user
   mysql_user:
-    name: "{{wordpress.db_user}}"
-    password: "{{wordpress.db_password}}"
-    priv: "{{wordpress.db_name}}.*:ALL"
+    name: "{{db.user}}"
+    password: "{{db.password}}"
+    priv: "{{db.name}}.*:ALL"
     host: localhost
 
 - name: download wordpress
@@ -26,12 +26,17 @@
     copy: no
     creates: /var/www/wordpress
 
+- name: generate wordpress cert directory
+  file: path="{{ssl_dir}}" state=directory
+
+- debug: msg="wordpress {{ssl_dir}}"
+
 - name: generate wordpress private key, csr and crt
   shell: |
-    openssl req -x509 -nodes -new -newkey rsa:2048 -keyout wordpress.key -out wordpress.crt \
-    -subj "/C={{wordpress.ssl.Country}}/ST={{wordpress.ssl.State}}/L={{wordpress.ssl.Locality}}/CN={{wordpress.ssl.CommonName}}" chdir="{{ssl_dir}}"
+    openssl req -x509 -nodes -new -newkey rsa:2048 -keyout privkey.pem -out fullchain.pem \
+    -subj "/C={{cert.Country}}/ST={{cert.State}}/L={{cert.Locality}}/CN={{cert.CommonName}}" chdir="{{ssl_dir}}"
   args:
-    creates: "{{ssl_dir}}/wordpress.crt"
+    creates: "{{ssl_dir}}/fullchain.pem"
 
 - name: change nginx defaut.conf for php
   template: src=nginx_wordpress.conf.j2 dest=/etc/nginx/conf.d/wordpress.conf backup=yes

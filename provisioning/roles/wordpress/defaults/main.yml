@@ -2,17 +2,20 @@
 domain: vagrant-wp.local
 doc_root: /var/www/wordpress
 
-wordpress:
-  db_name: wordpress
-  db_user: wp_user
-  db_password: wp_pswd
-  ssl:
-    Country: JP
-    State: Tokyo
-    Locality: Minato-ku
-    OrganizationalName: Default Company Ltd
-    OrganizationalUnit: ""
-    CommonName: vagrant-wp.local
-    Email: ""
-    challenge_password: ''
-    optional_company: ''
+db:
+  name: wordpress
+  user: wp_user
+  password: wp_pswd
+
+ssl_dir: "{{nginx.dir}}/ssl/{{domain}}"
+
+cert:
+  Country: JP
+  State: Tokyo
+  Locality: Minato-ku
+  OrganizationalName: Default Company Ltd
+  OrganizationalUnit: ""
+  CommonName: "{{domain}}"
+  Email: ""
+  challenge_password: ''
+  optional_company: ''
