@@ -8,8 +8,9 @@ nginx:
 nofile_limit:
   LimitNOFILE: "{{nginx.worker_rlimit_nofile}}"
 
-ssl:
-  dir: "{{nginx.dir}}/ssl"
+ssl_dir: "{{nginx.dir}}/ssl"
+
+cert:
   Country: JP
   State: Tokyo
   Locality: Minato-ku

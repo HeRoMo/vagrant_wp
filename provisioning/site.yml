@@ -1,11 +1,19 @@
 ---
-- hosts: vagrant
+- hosts: all
   become: yes
+  vars_files:
+    - vars/{{stage}}.yml
   roles:
     - base
+    - mariadb
     - nginx
     - php
-    - mariadb
     - security
     - wordpress
+
+- hosts: vagrant
+  become: yes
+  vars_files:
+      - vars/{{stage}}.yml
+  roles:
     - avahi

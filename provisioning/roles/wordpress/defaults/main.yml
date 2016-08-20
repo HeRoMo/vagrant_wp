@@ -1,6 +1,8 @@
 ---
+domain: vagrant-wp.local
+doc_root: /var/www/wordpress
+
 wordpress:
-  hostname: vagrant-wp.local
   db_name: wordpress
   db_user: wp_user
   db_password: wp_pswd

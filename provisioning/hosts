@@ -1,2 +1,5 @@
 [vagrant]
 vagrant-wp ansible_connection=local
+
+[all:vars]
+stage=vagrant

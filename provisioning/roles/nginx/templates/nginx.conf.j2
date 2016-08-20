@@ -25,6 +25,8 @@ http {
     keepalive_timeout  {{nginx.keepalive_timeout}};
 
     gzip  on;
+    gzip_types text/css text/javascript application/json application/javascript;
+    gzip_vary on;
     server_names_hash_bucket_size {{nginx.server_names_hash_bucket_size}};
 
     include /etc/nginx/conf.d/*.conf;
