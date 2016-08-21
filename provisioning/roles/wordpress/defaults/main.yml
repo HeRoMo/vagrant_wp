@@ -8,7 +8,7 @@ db:
   password: wp_pswd
 
 ssl_dir: "{{nginx.dir}}/ssl/{{domain}}"
-
+ssl_cert: 'self-signed'
 cert:
   Country: JP
   State: Tokyo

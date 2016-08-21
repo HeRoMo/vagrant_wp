@@ -1,0 +1,10 @@
+---
+- name: generate wordpress cert directory
+  file: path="{{ssl_dir}}" state=directory
+
+- name: generate wordpress private key, csr and crt
+  shell: |
+    openssl req -x509 -nodes -new -newkey rsa:2048 -keyout privkey.pem -out fullchain.pem \
+    -subj "/C={{cert.Country}}/ST={{cert.State}}/L={{cert.Locality}}/CN={{cert.CommonName}}" chdir="{{ssl_dir}}"
+  args:
+    creates: "{{ssl_dir}}/fullchain.pem"

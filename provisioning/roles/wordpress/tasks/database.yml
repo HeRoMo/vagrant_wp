@@ -1,0 +1,13 @@
+---
+- name: add wordpress db
+  mysql_db:
+    name: "{{db.name}}"
+    encoding: utf8
+    state: present
+
+- name: add worpdress db user
+  mysql_user:
+    name: "{{db.user}}"
+    password: "{{db.password}}"
+    priv: "{{db.name}}.*:ALL"
+    host: localhost
