@@ -21,7 +21,15 @@
 - name: open services
   firewalld: service={{item}} permanent=true state=enabled
   with_items:
-    - ssh
     - http
     - https
   notify: reload firewalld
+
+- name: open ports
+  firewalld:
+    port: "{{item}}"
+    permanent: true
+    state: enabled
+  with_items: "{{open_ports}}"
+  notify: reload firewalld
+
