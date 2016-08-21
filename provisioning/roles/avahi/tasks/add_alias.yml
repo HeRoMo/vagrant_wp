@@ -1,0 +1,9 @@
+---
+- shell: grep '{{domain}}' /etc/avahi/aliases.d/default
+  register: avahi_aliases
+  changed_when: no
+  ignore_errors: yes
+
+- name: add domain to avahi-alias
+  shell: echo '{{domain}}' >> /etc/avahi/aliases.d/default
+  when: avahi_aliases.rc != 0

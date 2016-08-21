@@ -1,0 +1,46 @@
+---
+- name: copy wordpress backup
+  copy: src={{own_wp.archive}} dest=/usr/local/src/own_wp.tar.gz
+
+- file: path="/usr/local/src/{{domain}}" state=directory
+
+- name: unarchive backup
+  unarchive:
+    src: "/usr/local/src/own_wp.tar.gz"
+    dest: "/usr/local/src/{{domain}}"
+    group: "{{php_fpm.group}}"
+    owner: "{{php_fpm.user}}"
+    copy: no
+    creates: "{{doc_root}}"
+
+- shell: ls /usr/local/src/{{domain}}/{{db.name}}.sql
+  register: result
+  ignore_errors: yes
+
+- name: restore db backup
+  mysql_db:
+    name: "{{db.name}}"
+    state: import
+    target: "/usr/local/src/{{domain}}/{{db.name}}.sql"
+  when: result.rc == 0
+
+- file: path="/usr/local/src/{{domain}}/{{db.name}}.sql" state=absent
+
+- name: move to doc root
+  shell: mv /usr/local/src/{{domain}} {{doc_root}}
+  args:
+    creates: "{{doc_root}}"
+
+- name: download Search-Replace-DB-master
+  get_url:
+    url: http://github.com/interconnectit/Search-Replace-DB/archive/master.zip
+    dest: /usr/local/src/Search-Replace-DB-master.zip
+
+- name: deploy Search-Replace-DB-master
+  unarchive:
+    src: /usr/local/src/Search-Replace-DB-master.zip
+    dest: "{{doc_root}}"
+    group: "{{php_fpm.group}}"
+    owner: "{{php_fpm.user}}"
+    copy: no
+    creates: "{{doc_root}}/Search-Replace-DB-master"

@@ -26,3 +26,7 @@
   firewalld: port=5353/udp permanent=true state=enabled
   notify: reload firewalld
   when: fw.rc != 0
+
+- name: add aliases
+  include: add_alias.yml
+  when: stage=='vagrant'

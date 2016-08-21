@@ -6,6 +6,10 @@
   include: wordpress.yml
   when: wordpress=="wordpress"
 
+- name: restore own wordpress
+  include: restore_own_wp.yml
+  when: wordpress=="own_wp"
+
 - name: create self siged cert
   include: self_signed_cert.yml
   when: ssl_cert=="self-signed"
