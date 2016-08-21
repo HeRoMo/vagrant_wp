@@ -2,6 +2,7 @@
 domain: vagrant-wp.local
 doc_root: /var/www/wordpress
 
+wordpress: 'wordpress'
 db:
   name: wordpress
   user: wp_user

@@ -1,0 +1,14 @@
+---
+- name: download wordpress
+  get_url:
+    url: https://ja.wordpress.org/latest-ja.tar.gz
+    dest: /usr/local/src/wordpress.tar.gz
+
+- name: install wordpress
+  unarchive:
+    src: /usr/local/src/wordpress.tar.gz
+    dest: /var/www
+    group: "{{php_fpm.group}}"
+    owner: "{{php_fpm.user}}"
+    copy: no
+    creates: "{{doc_root}}"
