@@ -42,14 +42,14 @@
 
 # SSL
 - name: make nginx ssl dir
-  file: path="{{ssl_dir}}" state=directory
+  file: path="{{nginx.dir}}/ssl" state=directory
 
 - name: generate private key, csr and crt
   shell: |
     openssl req -x509 -nodes -new -newkey rsa:2048 -keyout privkey.pem -out fullchain.pem \
-    -subj "/C={{cert.Country}}/ST={{cert.State}}/L={{cert.Locality}}/CN={{cert.CommonName}}" chdir="{{ssl_dir}}"
+    -subj "/C={{default_cert.Country}}/ST={{default_cert.State}}/L={{default_cert.Locality}}/CN={{default_cert.CommonName}}" chdir="{{default_ssl_dir}}"
   args:
-    creates: "{{ssl_dir}}/privkey.pem"
+    creates: "{{nginx.dir}}/ssl/privkey.pem"
 
 - name: generate dhparam.pem
   command: openssl dhparam 2048 -out {{nginx.dir}}/ssl/dhparam.pem
