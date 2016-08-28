@@ -14,3 +14,7 @@
   service: name=mariadb state=started enabled=yes
   tags:
     - mariadb
+
+- name: set mysql root password
+  include: root_password.yml
+  when: db_root_password is defined

@@ -1,3 +1,5 @@
 ---
 mariadb:
   version: 10.1
+
+#db_root_password: your_password
