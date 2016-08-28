@@ -1,3 +1,7 @@
 ---
+## firewall setting ##
 open_interfaces:
 open_ports:
+
+## SELinux ##
+#selinux_mode: permissive

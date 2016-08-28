@@ -6,3 +6,7 @@
 
 - name: sysctl setting
   include: sysctl.yml
+
+- name: selinux
+  include: selinux.yml
+  when: selinux_mode is defined
