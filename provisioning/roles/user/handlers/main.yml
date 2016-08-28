@@ -1,0 +1,5 @@
+---
+- name: lock user password
+  command: passwd -e {{item.name}}
+  when: "{{item.changed}}"
+  with_items: "{{added_user.results}}"
