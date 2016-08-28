@@ -7,16 +7,10 @@
   tags:
     - firewalld
 
-- shell: firewall-cmd --list-interfaces|grep enp0s8
-  register: iface
-  changed_when: iface.rc != 0
-  ignore_errors: yes
-
-- name: add interface
-#  firewalld: interface=enp0s8 zone=public permanent=true
-  command: firewall-cmd --zone=public --add-interface=enp0s8 --permanent
+- name: add interfeces
+  firewalld: interface={{item}} zone=public permanent=true state=enabled
+  with_items: "{{open_interfaces}}"
   notify: reload firewalld
-  when: iface.rc != 0
 
 - name: open services
   firewalld: service={{item}} permanent=true state=enabled
