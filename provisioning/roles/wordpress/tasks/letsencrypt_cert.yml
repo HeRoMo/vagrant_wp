@@ -1,0 +1,13 @@
+---
+- name: create cert # とりあえず、standaloneモードで証明書を作る。
+  shell: |
+    systemctl stop nginx && \
+    /usr/local/certbot/certbot-auto certonly --standalone -w {{doc_root}} -d {{domain}} -m {{letsencrypt_mail}} --agree-tos -n
+  args:
+    creates: "{{ssl_dir}}"
+  notify:
+    - restart nginx
+    - switch certbot-auto to webroot
+    - add renew cert to crontab
+  tags:
+    - letsencrypt

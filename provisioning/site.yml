@@ -9,6 +9,7 @@
     - nginx
     - php
     - security
+    - letsencrypt
     - wordpress
 
 - hosts: vagrant

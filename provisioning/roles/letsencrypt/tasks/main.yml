@@ -1,0 +1,22 @@
+---
+- name: clone certbot
+  git:
+    repo: https://github.com/certbot/certbot
+    dest: /usr/local/certbot
+    update: no
+
+- name: install dependencies
+  yum: name={{item}} state=present
+  with_items:
+   - augeas-libs
+   - dialog
+   - gcc
+   - libffi-devel
+   - mod_ssl
+   - openssl-devel
+   - python-devel
+   - python-tools
+   - python-virtualenv
+   - redhat-rpm-config
+  tags:
+    - letsencrypt

@@ -2,3 +2,4 @@
 dependencies:
   - php
   - mariadb
+  - letsencrypt

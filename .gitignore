@@ -1,5 +1,11 @@
 .vagrant
+.idea
 
 *.retry
 *.org
 .DS_Store
+
+provisioning/vars/*.yml
+backwpup_*
+hosts_*
+backup_*

@@ -1,0 +1,6 @@
+---
+domain: www.example.com
+doc_root: /var/www/example
+
+ssl_dir: /etc/letsencrypt/live/{{domain}}
+letsencrypt_mail: your@e-mail.com

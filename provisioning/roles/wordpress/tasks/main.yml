@@ -14,6 +14,12 @@
   include: self_signed_cert.yml
   when: ssl_cert=="self-signed"
 
+- name: create letsencrypt cert
+  include: letsencrypt_cert.yml
+  when: ssl_cert=="letsencrypt"
+  tags:
+    - letsencrypt
+
 - name: change nginx {{domain}}.conf
   template: src=nginx_wordpress.conf.j2 dest=/etc/nginx/conf.d/{{domain}}.conf backup=yes
   notify:
