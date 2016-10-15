@@ -4,6 +4,9 @@
   changed_when: no
   ignore_errors: yes
 
+- debug: var=avahi_aliases
+- debug: var=domain
+
 - name: add domain to avahi-alias
   shell: echo '{{domain}}' >> /etc/avahi/aliases.d/default
-  when: avahi_aliases.rc != 0
+  when: avahi_aliases

@@ -29,4 +29,6 @@
 
 - name: add aliases
   include: add_alias.yml
-  when: stage=='vagrant'
+  when:
+    - stage=='vagrant'
+    - domain is defined
