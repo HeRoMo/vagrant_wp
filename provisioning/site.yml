@@ -9,7 +9,6 @@
     - nginx
     - php
     - security
-    - letsencrypt
     - wordpress
 
 - hosts: vagrant
@@ -18,3 +17,17 @@
       - vars/{{stage}}.yml
   roles:
     - avahi
+
+- hosts: staging
+  become: yes
+  vars_files:
+      - vars/{{stage}}.yml
+  roles:
+    - letsencrypt
+
+- hosts: production
+  become: yes
+  vars_files:
+      - vars/{{stage}}.yml
+  roles:
+    - letsencrypt

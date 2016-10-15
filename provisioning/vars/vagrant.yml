@@ -1,0 +1,5 @@
+---
+open_interfaces:
+  - enp0s3
+
+# domain: vagrant-wp.local
