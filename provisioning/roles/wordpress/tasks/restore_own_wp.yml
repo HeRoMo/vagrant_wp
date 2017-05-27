@@ -13,16 +13,16 @@
     copy: no
     creates: "{{doc_root}}"
 
-- shell: ls /usr/local/src/{{domain}}/{{db.name}}.sql
-  register: result
-  ignore_errors: yes
+- find:
+    paths: "/usr/local/src/{{ domain }}/{{ db.name }}.sql"
+  register: _sql_file
 
 - name: restore db backup
   mysql_db:
-    name: "{{db.name}}"
+    name: "{{ db.name }}"
     state: import
-    target: "/usr/local/src/{{domain}}/{{db.name}}.sql"
-  when: result.rc == 0
+    target: "/usr/local/src/{{ domain }}/{{ db.name }}.sql"
+  when: _sql_file.matched == 1
 
 - file: path="/usr/local/src/{{domain}}/{{db.name}}.sql" state=absent
 
