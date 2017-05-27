@@ -38,6 +38,7 @@
   get_url:
     url: http://github.com/interconnectit/Search-Replace-DB/archive/master.zip
     dest: /usr/local/src/Search-Replace-DB-master.zip
+  when: install_serach_replace_db
 
 - name: deploy Search-Replace-DB-master
   unarchive:
@@ -47,3 +48,4 @@
     owner: "{{php_fpm.user}}"
     copy: no
     creates: "{{doc_root}}/Search-Replace-DB-master"
+  when: install_serach_replace_db
