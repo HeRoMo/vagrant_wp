@@ -32,7 +32,11 @@
     creates: "{{doc_root}}"
 
 - name: chown doc root
-  shell: chown -R {{php_fpm.user}}.{{php_fpm.group}} {{doc_root}}
+  file:
+    path: "{{doc_root}}"
+    group: "{{php_fpm.user}}"
+    owner: "{{php_fpm.user}}"
+    recurse: yes
 
 - name: download Search-Replace-DB-master
   get_url:
