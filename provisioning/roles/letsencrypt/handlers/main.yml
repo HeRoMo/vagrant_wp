@@ -1,5 +1,5 @@
 - name: switch certbot-auto to webroot
-  command: /usr/local/certbot/certbot-auto certonly --webroot -w {{doc_root}} -d {{domain}} -m {{letsencrypt_mail}} --agree-tos -n --force
+  command: /usr/local/certbot/certbot-auto certonly --webroot -w {{doc_root}} -d {{domain}} -m {{letsencrypt_mail}} --agree-tos -n --force-renewal
 
 - name: add renew cert to crontab
   cron:
