@@ -1,19 +1,30 @@
 ---
 - name: add administrators group
-  group: name={{administrator_group}} state=present
+  group:
+    name: "{{ administrator_group }}"
+    state: present
   tags: users
 
 - name: add sudoers
   template: src=administrators.j2 dest=/etc/sudoers.d/{{administrator_group}} backup=no
 
 - name: add users
-  user: name={{item}} groups={{administrator_group}} password='' state=present
+  user:
+    name: "{{ item }}"
+    groups: "{{ administrator_group }}"
+    password: ''
+    state: present
   register: added_user
   notify: lock user password
-  with_items: "{{administrators}}"
+  with_items: "{{ administrators }}"
   tags: users
 
 - name: create .ssh dir
-  file: path="/home/{{item}}/.ssh" state=directory owner={{item}} group={{item}} mode=0700
-  with_items: "{{administrators}}"
+  file:
+    path: "/home/{{ item }}/.ssh"
+    state: directory
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0700
+  with_items: "{{ administrators }}"
   tags: users
