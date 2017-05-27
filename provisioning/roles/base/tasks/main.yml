@@ -8,14 +8,9 @@
   command: localectl set-locale {{base.locale}}
   when: locale.rc != 0
 
-- shell: timedatectl status|grep {{base.timezone}}
-  register: timezone
-  changed_when: timezone.rc != 0
-  ignore_errors: yes
-
 - name: set timezone
-  command: timedatectl set-timezone {{base.timezone}}
-  when: timezone.rc != 0
+  timezone:
+    name: "{{ base.timezone }}"
 
 - name: add epel repository
   yum: name=epel-release state=present
