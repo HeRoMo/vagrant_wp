@@ -1,8 +1,15 @@
 server {
     listen 80 default_server;
 
-    # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
-    return 301 https://$host$request_uri;
+    location ^~ /.well-known/acme-challenge/ {
+      default_type "text/plain";
+      root         {{doc_root}};
+    }
+
+    location / {
+      # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
+      return 301 https://$host$request_uri;
+    }
 }
 
 server {
@@ -29,11 +36,6 @@ server {
 
   access_log  /var/log/nginx/{{domain}}-access.log  combined;
   error_log  /var/log/nginx/{{domain}}-error.log;
-
-  location ^~ /.well-known/acme-challenge/ {
-    default_type "text/plain";
-    root         {{doc_root}};
-  }
 
   location / {
     try_files $uri $uri/ @wordpress;
