@@ -13,7 +13,8 @@
     copy: no
     creates: "{{doc_root}}"
 
-- find:
+- name: find db-backup
+  find:
     paths: "/usr/local/src/{{ domain }}/{{ db.name }}.sql"
   register: _sql_file
 
